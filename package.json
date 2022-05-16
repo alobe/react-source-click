@@ -32,7 +32,7 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "@byted-ei/react-source-click",
+  "name": "react-source-click",
   "author": "alobe",
   "module": "dist/react-source-click.esm.js",
   "size-limit": [
