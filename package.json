@@ -1,5 +1,5 @@
 {
-  "version": "0.1.2",
+  "version": "0.1.3",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -11,7 +11,8 @@
   },
   "scripts": {
     "start": "tsdx watch",
-    "build": "tsdx build",
+    "css": "tailwindcss -i ./src/style/source.css -o ./src/style/index.css --watch --minify",
+    "build": "tsdx build && cp ./src/style/index.css ./dist/index.css",
     "test": "tsdx test",
     "lint": "tsdx lint",
     "prepare": "tsdx build",
@@ -32,7 +33,7 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "react-source-click",
+  "name": "@byted-ei/react-source-click",
   "author": "alobe",
   "module": "dist/react-source-click.esm.js",
   "size-limit": [
@@ -52,6 +53,7 @@
     "husky": "^7.0.4",
     "rollup-plugin-import-css": "^3.0.3",
     "size-limit": "^7.0.8",
+    "tailwindcss": "^3.0.24",
     "tsdx": "^0.14.1",
     "tslib": "^2.4.0",
     "typescript": "^4.6.4"
