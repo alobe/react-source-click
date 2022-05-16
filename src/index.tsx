@@ -48,6 +48,7 @@ export const Analysis = () => {
       }}>
       {fibers.map(f => {
         const detail = getDetail(f);
+        const name = getDisplayName(f);
         return (
           <div
             style={{
@@ -57,9 +58,9 @@ export const Analysis = () => {
             }}
             key={f._debugID}
             // eslint-disable-next-line no-console
-            onMouseOver={() => console.info('Component pendingProps =>>>> ', f.pendingProps)}
+            onMouseOver={() => console.info(`Component (${name}) pendingProps =>>>> `, f.pendingProps)}
             onClick={e => (e.preventDefault(), window.open(detail.url))}>
-            <div style={{color: 'rgba(153, 51, 255)', fontWeight: 500, fontSize: 16}}>{getDisplayName(f)}: </div>
+            <div style={{color: 'rgba(153, 51, 255)', fontWeight: 500, fontSize: 16}}>{name}: </div>
             <div style={{fontSize: 12, color: '#8f959e'}}>
               {detail.fileName.split('src/')?.[1]}:{detail.lineNumber}
             </div>
