@@ -70,3 +70,5 @@ export const Analysis = () => {
     </div>
   ) : null;
 };
+
+module.exports = Analysis
