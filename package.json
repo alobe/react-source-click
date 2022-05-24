@@ -1,5 +1,5 @@
 {
-  "version": "0.1.6",
+  "version": "0.1.7",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -32,7 +32,7 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "react-source-click",
+  "name": "@byted-ei/react-source-click",
   "author": "alobe",
   "module": "dist/react-source-click.esm.js",
   "size-limit": [
