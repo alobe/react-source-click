@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core'
 import * as React from 'react';
 import { getReactFibers, getDisplayName, getDetail } from './utils/react-analysis';
 export * from './utils/react-analysis';
@@ -33,35 +35,45 @@ export const Analysis = () => {
     <div
       ref={ref}
       onContextMenu={e => (e.stopPropagation(), e.preventDefault())}
-      style={{
-        bottom: 20,
-        right: 20,
-        zIndex: 99999,
-        border: '1px solid rgba(153, 51, 255)',
-        boxShadow: '3px 3px 5px rgba(153, 51, 255, 0.5)',
-        position: 'fixed',
-        borderRadius: 4,
-        padding: 10,
-        display: 'flex',
-        flexDirection: 'column',
-        backgroundColor: 'white'
-      }}>
+      css={css`
+        display: flex;
+        position: fixed;
+        padding: 10px;
+        flex-direction: column;
+        border-radius: 4px;
+        background-color: white;
+        right: 20px;
+        bottom: 20px;
+        z-index: 99999;
+        border: 1px solid rgba(153, 51, 255);
+        box-shadow: 3px 3px 5px rgba(153, 51, 255, 0.5);
+      `}>
       {fibers.map(f => {
         const detail = getDetail(f);
         const name = getDisplayName(f);
         return (
           <div
-            style={{
-              cursor: 'pointer',
-              borderRadius: 4,
-              padding: '0 4px',
-            }}
+            css={css`
+              cursor: pointer;
+              border-radius: 4px;
+              padding: 0 2px;
+              &:hover {
+                background-color: rgba(153, 51, 255, 0.1);
+              }
+            `}
             key={f._debugID}
             // eslint-disable-next-line no-console
-            onMouseOver={() => console.info(`Component (${name}) pendingProps =>>>> `, f.pendingProps)}
+            onMouseOver={() => console.info(`[${name}] Component pendingProps =>>>> `, f.pendingProps)}
             onClick={e => (e.preventDefault(), window.open(detail.url))}>
-            <div style={{color: 'rgba(153, 51, 255)', fontWeight: 500, fontSize: 16}}>{name}: </div>
-            <div style={{fontSize: 12, color: '#8f959e'}}>
+            <div css={css`
+              color: rgba(153, 51, 255);
+              font-weight: 500;
+              font-size: 16px;
+            `}>{name}: </div>
+            <div css={css`
+              color: #646a73;
+              font-size: 12px;
+            `}>
               {detail.fileName.split('src/')?.[1]}:{detail.lineNumber}
             </div>
           </div>
