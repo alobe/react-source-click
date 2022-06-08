@@ -11,6 +11,7 @@ module.exports = {
       // config.output.format = 'esm'
     }
     config.plugins = [...config.plugins, css()]
+    config.output.sourcemap = false
     return config
   }
 }
