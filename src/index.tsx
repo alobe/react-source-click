@@ -31,63 +31,65 @@ export const Analysis = () => {
     return () => document.removeEventListener('click', cb);
   }, []);
 
-  useEffect(() => {
-    const a = (window as any).disable_source_click ?? false
-    setEnable(!a)
-  }, [(window as any).disable_source_click])
-
 
   const fibers = getReactFibers(target).filter(f => f._debugSource);
-  return enable && target && fibers.length ? (
-    <div
-      ref={ref}
-      onContextMenu={e => (e.stopPropagation(), e.preventDefault())}
-      css={css`
-        display: flex;
-        position: fixed;
-        padding: 10px;
-        flex-direction: column;
-        border-radius: 4px;
-        background-color: white;
-        right: 20px;
-        bottom: 20px;
-        z-index: 99999;
-        border: 1px solid rgba(153, 51, 255);
-        box-shadow: 3px 3px 5px rgba(153, 51, 255, 0.5);
-      `}>
-      {fibers.map(f => {
-        const detail = getDetail(f);
-        const name = getDisplayName(f);
-        return (
+  return (
+    <div>
+      {
+        enable && target && fibers.length ? (
           <div
+            ref={ref}
+            onContextMenu={e => (e.stopPropagation(), e.preventDefault())}
             css={css`
-              cursor: pointer;
+              display: flex;
+              position: fixed;
+              padding: 10px;
+              flex-direction: column;
               border-radius: 4px;
-              padding: 0 2px;
-              &:hover {
-                background-color: rgba(153, 51, 255, 0.1);
-              }
-            `}
-            key={f._debugID}
-            // eslint-disable-next-line no-console
-            onMouseOver={() => console.info(`[${name}] Component pendingProps =>>>> `, f.pendingProps)}
-            onClick={e => (e.preventDefault(), window.open(detail.url))}>
-            <div css={css`
-              color: rgba(153, 51, 255);
-              font-weight: 500;
-              font-size: 16px;
-            `}>{name}: </div>
-            <div css={css`
-              color: #646a73;
-              font-size: 12px;
+              background-color: white;
+              right: 20px;
+              bottom: 20px;
+              z-index: 99999;
+              border: 1px solid rgba(153, 51, 255);
+              box-shadow: 3px 3px 5px rgba(153, 51, 255, 0.5);
             `}>
-              {detail.fileName.split('src/')?.[1]}:{detail.lineNumber}
-            </div>
+            {fibers.map(f => {
+              const detail = getDetail(f);
+              const name = getDisplayName(f);
+              return (
+                <div
+                  css={css`
+                    cursor: pointer;
+                    border-radius: 4px;
+                    padding: 0 2px;
+                    &:hover {
+                      background-color: rgba(153, 51, 255, 0.1);
+                    }
+                  `}
+                  key={f._debugID}
+                  // eslint-disable-next-line no-console
+                  onMouseOver={() => console.info(`[${name}] Component pendingProps =>>>> `, f.pendingProps)}
+                  onClick={e => (e.preventDefault(), window.open(detail.url))}>
+                  <div css={css`
+                    color: rgba(153, 51, 255);
+                    font-weight: 500;
+                    font-size: 16px;
+                  `}>{name}: </div>
+                  <div css={css`
+                    color: #646a73;
+                    font-size: 12px;
+                  `}>
+                    {detail.fileName.split('src/')?.[1]}:{detail.lineNumber}
+                  </div>
+                </div>
+              );
+            })}
           </div>
-        );
-      })}
+        ) : null
+      }
+      <div css={css`display: none;`} id="react_source_click" onClick={() => setEnable(v => !v)} />
     </div>
-  ) : null;
+  )
 };
 
 module.exports = Analysis
