@@ -10,6 +10,7 @@ const { useState, useEffect, useRef } = React;
 export const Analysis = () => {
   const [target, setTarget] = useState<HTMLElement | null>(null);
   const ref = useRef<HTMLDivElement>(null);
+  const [enable, setEnable] = useState(true)
 
   useEffect(() => {
     const cb = (e: MouseEvent) => {
@@ -30,8 +31,14 @@ export const Analysis = () => {
     return () => document.removeEventListener('click', cb);
   }, []);
 
+  useEffect(() => {
+    const a = (window as any).disable_source_click ?? false
+    setEnable(!a)
+  }, [(window as any).disable_source_click])
+
+
   const fibers = getReactFibers(target).filter(f => f._debugSource);
-  return target && fibers.length ? (
+  return enable && target && fibers.length ? (
     <div
       ref={ref}
       onContextMenu={e => (e.stopPropagation(), e.preventDefault())}
