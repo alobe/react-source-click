@@ -46,6 +46,8 @@ export const Analysis = () => {
               flex-direction: column;
               border-radius: 4px;
               background-color: white;
+              max-height: 500px;
+              overflow-y: auto;
               right: 20px;
               bottom: 20px;
               z-index: 99999;
@@ -77,13 +79,15 @@ export const Analysis = () => {
                     color: rgba(153, 51, 255);
                     font-weight: 500;
                     font-size: 16px;
-                  `}>{name}: </div>
-                  <div css={css`
-                    color: #646a73;
-                    font-size: 12px;
-                  `}>
-                    {detail ? (detail.fileName.split('src/')?.[1] + ':' + detail.lineNumber) : 'No Code Source!'}
-                  </div>
+                  `}>{name}: {!detail && 'No source address!'}</div>
+                  {!!detail && (
+                    <div css={css`
+                      color: #646a73;
+                      font-size: 12px;
+                    `}>
+                      {detail.fileName.split('src/')?.[1] + ':' + detail.lineNumber}
+                    </div>
+                  )}
                 </div>
               );
             })}
