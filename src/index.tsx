@@ -31,8 +31,7 @@ export const Analysis = () => {
     return () => document.removeEventListener('click', cb);
   }, []);
 
-
-  const fibers = getReactFibers(target).filter(f => f._debugSource);
+  const fibers = getReactFibers(target).filter(f => typeof f.type === 'function')
   return (
     <div>
       {
@@ -56,6 +55,12 @@ export const Analysis = () => {
             {fibers.map(f => {
               const detail = getDetail(f);
               const name = getDisplayName(f);
+              const logProps = (logType = false) => {
+                // eslint-disable-next-line no-console
+                console.info(`%c[${name}] Component pendingProps =>>>> `, 'color: yellow', f.pendingProps)
+                // eslint-disable-next-line no-console
+                logType && console.info(`%cClick detail to [${name}] Component Source =>>>> `, 'color: rgba(153, 51, 255)', f.type)
+              }
               return (
                 <div
                   css={css`
@@ -67,9 +72,7 @@ export const Analysis = () => {
                     }
                   `}
                   key={f._debugID}
-                  // eslint-disable-next-line no-console
-                  onMouseOver={() => console.info(`[${name}] Component pendingProps =>>>> `, f.pendingProps)}
-                  onClick={e => (e.preventDefault(), window.open(detail.url))}>
+                  onClick={e => (e.preventDefault(), !!detail && window.open(detail.url), logProps(!detail))}>
                   <div css={css`
                     color: rgba(153, 51, 255);
                     font-weight: 500;
@@ -79,7 +82,7 @@ export const Analysis = () => {
                     color: #646a73;
                     font-size: 12px;
                   `}>
-                    {detail.fileName.split('src/')?.[1]}:{detail.lineNumber}
+                    {detail ? (detail.fileName.split('src/')?.[1] + ':' + detail.lineNumber) : 'No Code Source!'}
                   </div>
                 </div>
               );

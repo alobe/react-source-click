@@ -46,7 +46,8 @@ export const getReactFibers = (e?: HTMLElement | null): Fiber[] => {
 
 
 export const getDetail = (fiber: Fiber, platform = 'vscode') => {
-  const { fileName, lineNumber = 1 } = fiber._debugSource!
+  if (!fiber._debugSource) return null
+  const { fileName, lineNumber = 1 } = fiber._debugSource
   let url = `vscode://file/${fileName}:${lineNumber}`
   if (platform === Platform.sublime) url = `subl://open?url=file://${fileName}&line=${lineNumber}`
   else if (platform === Platform.phpstorm) url = `phpstorm://open?file=${fileName}&line=${lineNumber}`
@@ -56,12 +57,12 @@ export const getDetail = (fiber: Fiber, platform = 'vscode') => {
 }
 
 export const getDisplayName = (f: Fiber) => {
-  const { elementType, tag } = f;
+  const { elementType, tag, type } = f;
   switch (tag) {
     case 0: // FunctionComponent
     case 1: // ClassComponent
       return (
-        elementType.displayName || elementType.name || 'Anonymous Component'
+        elementType.displayName || elementType.name || type.name || 'Anonymous Component'
       )
 
     case 5: // HostComponent:
