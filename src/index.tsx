@@ -79,7 +79,12 @@ export const Analysis = () => {
                     color: rgba(153, 51, 255);
                     font-weight: 500;
                     font-size: 16px;
-                  `}>{name}: {!detail && 'No source address!'}</div>
+                  `}>{name}: {!detail && (
+                    <span css={css`
+                      font-size: 14px;
+                      font-weight: normal;
+                    `}>No source address!</span>
+                  )}</div>
                   {!!detail && (
                     <div css={css`
                       color: #646a73;
