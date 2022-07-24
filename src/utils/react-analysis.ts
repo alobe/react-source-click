@@ -46,8 +46,20 @@ export const getReactFibers = (e?: HTMLElement | null): Fiber[] => {
 
 
 export const getDetail = (fiber: Fiber, platform = 'vscode') => {
-  if (!fiber._debugSource) return null
-  const { fileName, lineNumber = 1 } = fiber._debugSource
+  const backupSource: string = fiber.pendingProps['source-trace']
+  if (!(fiber._debugSource || backupSource)) return null
+  let fileName: string = '', lineNumber: string | number = 1
+  if (fiber._debugSource) {
+    fileName = fiber._debugSource.fileName
+    lineNumber = fiber._debugSource.lineNumber
+  } else if (backupSource) {
+    const s = backupSource.split(':')
+    fileName = s[0]
+    lineNumber = s[1]
+  }
+
+  if (!fileName) return null
+
   let url = `vscode://file/${fileName}:${lineNumber}`
   if (platform === Platform.sublime) url = `subl://open?url=file://${fileName}&line=${lineNumber}`
   else if (platform === Platform.phpstorm) url = `phpstorm://open?file=${fileName}&line=${lineNumber}`
