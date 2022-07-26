@@ -15,6 +15,7 @@ export const Analysis = () => {
   useHotkeys('ctrl+s+k', () => setEnable(v => !v))
 
   useEffect(() => {
+    if (!enable) return () => {}
     const cb = (e: MouseEvent) => {
       e.preventDefault();
       if (!(e.target instanceof HTMLElement)) return;
@@ -23,15 +24,16 @@ export const Analysis = () => {
     };
     document.addEventListener('contextmenu', cb);
     return () => document.removeEventListener('contextmenu', cb);
-  }, []);
+  }, [enable]);
 
   useEffect(() => {
+    if (!enable) return () => {}
     const cb = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as HTMLElement)) setTarget(null);
     };
     document.addEventListener('click', cb);
     return () => document.removeEventListener('click', cb);
-  }, []);
+  }, [enable]);
 
   const fibers = getReactFibers(target).filter(f => typeof f.type === 'function')
   return (
