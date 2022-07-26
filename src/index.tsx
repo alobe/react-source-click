@@ -2,6 +2,7 @@
 import { jsx, css } from '@emotion/react'
 import * as React from 'react';
 import { getReactFibers, getDisplayName, getDetail } from './utils/react-analysis';
+import { useHotkeys } from 'react-hotkeys-hook'
 export * from './utils/react-analysis';
 export * from './constant';
 
@@ -11,6 +12,7 @@ export const Analysis = () => {
   const [target, setTarget] = useState<HTMLElement | null>(null);
   const ref = useRef<HTMLDivElement>(null);
   const [enable, setEnable] = useState(true)
+  useHotkeys('ctrl+s+k', () => setEnable(v => !v))
 
   useEffect(() => {
     const cb = (e: MouseEvent) => {

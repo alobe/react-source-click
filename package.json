@@ -33,6 +33,7 @@
   },
   "name": "react-source-click",
   "author": "alobe",
+  "email": "alobef0515@gmail.com",
   "module": "dist/react-source-click.esm.js",
   "size-limit": [
     {
@@ -56,6 +57,7 @@
     "typescript": "^4.6.4"
   },
   "dependencies": {
-    "@emotion/react": "^11.9.0"
+    "@emotion/react": "^11.9.0",
+    "react-hotkeys-hook": "^3.4.7"
   }
 }
