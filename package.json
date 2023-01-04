@@ -1,11 +1,12 @@
 {
-  "version": "0.4.3",
+  "version": "0.4.4",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
     "dist",
-    "babel-plugin-source-trace"
+    "babel-plugin-source-trace",
+    "babel-plugin-jsx-source-bind"
   ],
   "engines": {
     "node": ">=10"
