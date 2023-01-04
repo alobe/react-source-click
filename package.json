@@ -32,7 +32,7 @@
     "trailingComma": "es5"
   },
   "name": "react-source-click",
-  "author": "alobe",
+  "author": "alobef",
   "email": "alobef0515@gmail.com",
   "module": "dist/react-source-click.esm.js",
   "size-limit": [
