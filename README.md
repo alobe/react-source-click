@@ -36,7 +36,7 @@ Right-click to inspect the elements in a React application, including informatio
 
 ```typescript
   // import
-  import { Analysis } from "react-source-click";
+  +import { Analysis } from "react-source-click";
   // import
   import React from "react";
   import ReactDOM from "react-dom/client";
@@ -47,7 +47,7 @@ Right-click to inspect the elements in a React application, including informatio
     <React.StrictMode>
       <App />
       // insert
-      <Analysis />
+      +<Analysis />
       // insert
     </React.StrictMode>
   );
