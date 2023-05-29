@@ -1,9 +1,11 @@
 # React source click
+
 Right-click to inspect the elements in a React application, including information from leaf nodes to root nodes and source code information for each node. Clicking will take you directly to the code editor.
 
 ## ShowCase
 
 ![showcase](https://alobe.4everland.store/test.gif)
+
 ## Features
 
 - short cut [ **ctrl + ;** ] can toggle right-click feature if you want to use the original function of right-click on the webpage.
@@ -13,7 +15,7 @@ Right-click to inspect the elements in a React application, including informatio
 ## Dependencies
 
 - framework like Next.js, create React App, Vite which use babel to compile code and use [@babel/plugin-transform-react-jsx-source](https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-react-jsx-source) by default
-- you can use [react-source-click/babel-plugin-source-trace](https://github.com/alobe/react-source-click/blob/master/babel-plugin-source-trace/index.js) in your .babelrc.json/babel.config.json if project you work on didn't use @babel/plugin-transform-react-jsx-source plugin
+- you can use [react-source-click/babel-plugin-source-trace](https://github.com/alobe/react-source-click/blob/master/babel-plugin-source-trace/index.js) in your .babelrc.json or babel.config.json if project you work on didn't use @babel/plugin-transform-react-jsx-source plugin
 
 ## Installation
 
@@ -54,10 +56,11 @@ Right-click to inspect the elements in a React application, including informatio
 - chrome devtool **Element** Tab source info inject
 
 ```json
-  // babel.config.json / .babelrc.json
+  // babel.config.json or .babelrc.json
   {
     ...,
     "plugins": [
+      ...,
       "react-source-click/babel-plugin-source-trace"
     ]
   }
