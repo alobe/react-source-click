@@ -3,6 +3,7 @@ import { jsx, css } from '@emotion/react'
 import * as React from 'react';
 import { getReactFibers, getDisplayName, getDetail } from './utils/react-analysis';
 import { useHotkeys } from 'react-hotkeys-hook'
+import { useDrag } from './hooks/useDrag';
 export * from './utils/react-analysis';
 export * from './constant';
 
@@ -12,7 +13,8 @@ export const Analysis = () => {
   const [target, setTarget] = useState<HTMLElement | null>(null);
   const ref = useRef<HTMLDivElement>(null);
   const [enable, setEnable] = useState(true)
-  useHotkeys('ctrl+s+k', () => setEnable(v => !v))
+  useHotkeys('ctrl+;', () => setEnable(v => !v))
+  const { position, handleMouseDown } = useDrag({ref})
 
   useEffect(() => {
     if (!enable) return () => {}
@@ -43,6 +45,7 @@ export const Analysis = () => {
           <div
             ref={ref}
             onContextMenu={e => (e.stopPropagation(), e.preventDefault())}
+            onMouseDown={e => handleMouseDown(e as any)}
             css={css`
               display: flex;
               position: fixed;
@@ -52,9 +55,10 @@ export const Analysis = () => {
               background-color: white;
               max-height: 500px;
               overflow-y: auto;
-              right: 20px;
-              bottom: 20px;
+              top: ${position.y}px;
+              left: ${position.x}px;
               z-index: 99999;
+              cursor: move;
               border: 1px solid rgba(153, 51, 255);
               box-shadow: 3px 3px 5px rgba(153, 51, 255, 0.5);
             `}>
@@ -66,6 +70,7 @@ export const Analysis = () => {
                 console.info(`%c[${name}] Component pendingProps =>>>> `, 'color: yellow', f.pendingProps)
                 // eslint-disable-next-line no-console
                 logType && console.info(`%cClick detail to [${name}] Component Source =>>>> `, 'color: rgba(153, 51, 255)', f.type)
+                console.info(`%c[${name}] Component Fiber =>>>> `, 'color: rgba(81, 207, 227, 0.5)', f)
               }
               return (
                 <div
@@ -107,5 +112,3 @@ export const Analysis = () => {
     </div>
   )
 };
-
-module.exports = Analysis
