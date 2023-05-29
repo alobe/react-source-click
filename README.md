@@ -4,7 +4,7 @@ Right-click to inspect the elements in a React application, including informatio
 
 ## ShowCase
 
-![showcase](https://alobe.4everland.store/test.gif)
+![showcase](./static/test.gif)
 
 ## Features
 
